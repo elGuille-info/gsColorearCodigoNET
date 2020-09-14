@@ -5,7 +5,7 @@ Utilidad (de .NET 5.0 Preview 8) para colorear código y generar HTML para usar 
 Esta utilidad utiliza .NET 5.0 Preview 8 y la biblioteca de clases <b>gsColorearNET</b> para colorear el código (de .NET Standard 2.0) instalada desde el paquete de NuGet.<br>
 <br>
 <br>
-<h3>Nota sobre esta versión para .NET 5.0 Preview</h3><br>
+<h3>Nota sobre esta versión para .NET 5.0 Preview</h3>
 Esta versión para .NET 5.0 Preview 8 de la utilidad de gsColorearCodigo para .NET Framework 4.8 es para poder depurar la DLL gsColorearNET,<br>
 ya que al estar compilada para .NET Standard 2.0 se ve que la depuración no la hace bien en Visual Studio 2019 final y sí en la versión preview, 
 o al menos esa es lo que yo he podido comprobar.
@@ -17,10 +17,10 @@ Las modificaciones estarán en otras ramas, por eso en este proyecto no uso otra
 La carpeta <b>bin-preview</b> tiene el ejecutable compilado con .NET 5.0 Preview 8 y gsColorearNET.dll compilada con .NET Standard 2.0.<br>
 <br>
 <br>
-<h2>IMPORTANTE:</h2><br>
+<h2>IMPORTANTE:</h2>
 Esta utilidad está codificada para usar en .NET 5.0 Preview 8 y seguirá siendo así hasta que haya alguna versión posterior.<br>
 También tengo una versión de esta utilidad que utiliza .NET framework 4.8.<br>
-Puedes usar este código en tus proyectos sin ninguna restricción.<br>
+Puedes usar parte de este código en tus proyectos sin ninguna restricción, pero si la utilizas al completo, por favor no cambies los datos de copyright, gracias.<br>
 <br>
 <br>
 <h2>Información y enlaces de esta utilidad</h2>
