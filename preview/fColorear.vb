@@ -51,7 +51,7 @@ Imports System.Collections.Generic
 
 ' Para no tener conflictos con otras DLL mías,                      (26/Ago/06)
 ' todas las clases están en este espacio de nombres.
-Imports gsColorearNET ' elGuille.Util.Developer
+Imports gsColorearNET
 
 Public Class fColorear
 

@@ -552,8 +552,6 @@ Partial Class fColorear
         '
         'txtColorClases
         '
-        'Me.txtColorClases.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        'Me.txtColorClases.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtColorClases.Font = New System.Drawing.Font("Courier New", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.txtColorClases.ForeColor = System.Drawing.SystemColors.ControlText
         Me.txtColorClases.Location = New System.Drawing.Point(140, 179)
@@ -699,8 +697,6 @@ Partial Class fColorear
         '
         'txtColorKeywords
         '
-        'Me.txtColorKeywords.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        'Me.txtColorKeywords.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtColorKeywords.Font = New System.Drawing.Font("Courier New", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.txtColorKeywords.ForeColor = System.Drawing.SystemColors.ControlText
         Me.txtColorKeywords.Location = New System.Drawing.Point(140, 153)
@@ -742,8 +738,6 @@ Partial Class fColorear
         '
         'txtColorXML
         '
-        'Me.txtColorXML.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        'Me.txtColorXML.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtColorXML.Font = New System.Drawing.Font("Courier New", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.txtColorXML.ForeColor = System.Drawing.SystemColors.ControlText
         Me.txtColorXML.Location = New System.Drawing.Point(140, 127)
@@ -785,8 +779,6 @@ Partial Class fColorear
         '
         'txtColorRem
         '
-        'Me.txtColorRem.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        'Me.txtColorRem.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtColorRem.Font = New System.Drawing.Font("Courier New", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.txtColorRem.Location = New System.Drawing.Point(140, 101)
         Me.txtColorRem.Name = "txtColorRem"
@@ -827,8 +819,6 @@ Partial Class fColorear
         '
         'txtColorTexto
         '
-        'Me.txtColorTexto.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        'Me.txtColorTexto.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtColorTexto.Font = New System.Drawing.Font("Courier New", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.txtColorTexto.Location = New System.Drawing.Point(140, 75)
         Me.txtColorTexto.Name = "txtColorTexto"
