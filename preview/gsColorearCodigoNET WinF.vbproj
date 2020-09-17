@@ -11,18 +11,18 @@
 
     <Version>1.1.0.0</Version>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.2</FileVersion>
+    <FileVersion>1.1.0.3</FileVersion>
     <Authors>Guillermo Som (Guille)</Authors>
     <Company>elGuille</Company>
     <Description>Utilidad para colorear código y generar código HTML para usar en publicaciones WEB.
 Usando gsColorearNET para .NET Standard 2.0.
-(para .NET 5.0 Preview 8 revisión del 17/Sep/2020)</Description>
+(para .NET 5.0 Preview 8 revisión del 18/Sep/2020)</Description>
     <Copyright>Copyright © Guillermo Som (Guille), 2020</Copyright>
     <ApplicationIcon>gsColorearCodigo.ico</ApplicationIcon>
     <OptionStrict>On</OptionStrict>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>elGuille.snk</AssemblyOriginatorKeyFile>
-    <PackageReleaseNotes>Usando la nueva versiónd e gsColorearNET v1.0.0.8</PackageReleaseNotes>
+    <PackageReleaseNotes>Usando la nueva versión de gsColorearNET v1.0.0.9</PackageReleaseNotes>
 
   </PropertyGroup>
 
