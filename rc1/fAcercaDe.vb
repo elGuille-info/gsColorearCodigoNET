@@ -51,21 +51,25 @@ Public Class fAcercaDe
 
         Dim prodAttr = ensamblado.GetCustomAttributes(GetType(System.Reflection.AssemblyProductAttribute), False)
         Dim producto = If(prodAttr.Length > 0, TryCast(prodAttr(0), System.Reflection.AssemblyProductAttribute).Product,
-                                                "gsColorearCodigo NETWinF")
+                                                "gsColorearCodigoNET")
 
         ' La descripción, tomar solo el final                   (11/Sep/20)
         Dim descAttr = ensamblado.GetCustomAttributes(GetType(System.Reflection.AssemblyDescriptionAttribute), False)
         Dim desc = If(descAttr.Length > 0, TryCast(descAttr(0), System.Reflection.AssemblyDescriptionAttribute).Description,
-                                                "(para .NET 5.0 Preview 8 revisión del 12/Sep/2020)")
+                                                "(para .NET 5.0 RC1 revisión del 21/Sep/2020)")
         desc = desc.Substring(desc.IndexOf("(para .NET"))
 
         labelTitulo.Text = producto
         bugInfo = $"{labelTitulo.Text} v {versF}"
 
+        Dim descColorear = gsColorearNET.Colorear.Version(True)
+        Dim i = descColorear.IndexOf("(para .NET")
+        descColorear = descColorear.Substring(0, i) & vbCrLf & descColorear.Substring(i)
+
         labelDescripcion.Text = labelTitulo.Text &
                         $" v{vers} ({versF})" & vbCrLf & vbCrLf &
                         desc & vbCrLf & vbCrLf &
-                        gsColorearNET.Colorear.Version(True)
+                        descColorear
 
 
         Me.labelWeb.Text = "Comprobando si hay actualizaciones..."

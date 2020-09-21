@@ -25,18 +25,17 @@ Partial Class fColorear
         Me.components = New System.ComponentModel.Container()
         Me.statusInfo = New System.Windows.Forms.ToolStripStatusLabel()
         Me.mnuFic = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuFicColorear = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuFicColorearEnRTF = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuFicColorearDeRTF = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuFicSep0 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuFicAbrir = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuFicGuardar = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuFicSep1 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuFicNavegar = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuFicSep2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.mnuFicAcerca = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuFicSep3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.mnuFicAcerca = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuFicSep4 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuFicSalir = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuSintaxColorear = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuSintaxColorearEnRTF = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuSintaxColorearDeRTF = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuEdi = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuEdiDeshacer = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuEdiSep1 = New System.Windows.Forms.ToolStripSeparator()
@@ -96,6 +95,7 @@ Partial Class fColorear
         Me.Label11 = New System.Windows.Forms.Label()
         Me.menuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.mnuSintax = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuSintaxSep1 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuSintax_Ninguno = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSintax_dotNet = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSintax_VB = New System.Windows.Forms.ToolStripMenuItem()
@@ -120,9 +120,6 @@ Partial Class fColorear
         Me.tsbDeshacer = New System.Windows.Forms.ToolStripButton()
         Me.tsbSep2 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsbSintax = New System.Windows.Forms.ToolStripSplitButton()
-        Me.tbSintaxColorearHTML = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tbSintaxColorearRTF = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tbSintaxSep1 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsbSep3 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsbNavegar = New System.Windows.Forms.ToolStripButton()
         Me.tsbSep4 = New System.Windows.Forms.ToolStripSeparator()
@@ -132,6 +129,8 @@ Partial Class fColorear
         Me.statusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.statusSintax = New System.Windows.Forms.ToolStripStatusLabel()
         Me.toolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.mnuFicVerRTF = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuFicSep2 = New System.Windows.Forms.ToolStripSeparator()
         Me.TabControl1.SuspendLayout()
         Me.tpPrincipal.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -156,91 +155,86 @@ Partial Class fColorear
         '
         'mnuFic
         '
-        Me.mnuFic.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuFicColorear, Me.mnuFicColorearEnRTF, Me.mnuFicColorearDeRTF, Me.mnuFicSep0, Me.mnuFicAbrir, Me.mnuFicGuardar, Me.mnuFicSep1, Me.mnuFicNavegar, Me.mnuFicSep2, Me.mnuFicAcerca, Me.mnuFicSep3, Me.mnuFicSalir})
+        Me.mnuFic.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuFicAbrir, Me.mnuFicGuardar, Me.mnuFicSep1, Me.mnuFicVerRTF, Me.mnuFicSep2, Me.mnuFicNavegar, Me.mnuFicSep3, Me.mnuFicAcerca, Me.mnuFicSep4, Me.mnuFicSalir})
         Me.mnuFic.Name = "mnuFic"
         Me.mnuFic.Size = New System.Drawing.Size(58, 20)
         Me.mnuFic.Text = "&Fichero"
         '
-        'mnuFicColorear
-        '
-        Me.mnuFicColorear.Name = "mnuFicColorear"
-        Me.mnuFicColorear.ShortcutKeys = System.Windows.Forms.Keys.F8
-        Me.mnuFicColorear.Size = New System.Drawing.Size(209, 22)
-        Me.mnuFicColorear.Text = "Colorear"
-        Me.mnuFicColorear.ToolTipText = " Colorea el código usando el lenguaje y el formato indicados "
-        '
-        'mnuFicColorearEnRTF
-        '
-        Me.mnuFicColorearEnRTF.Name = "mnuFicColorearEnRTF"
-        Me.mnuFicColorearEnRTF.Size = New System.Drawing.Size(209, 22)
-        Me.mnuFicColorearEnRTF.Text = "Colorear en RTF (o HTML)"
-        Me.mnuFicColorearEnRTF.ToolTipText = " Marca esta opción para generar en formato RTF (si no lo marcas, se genera en HTM" &
-    "L) "
-        '
-        'mnuFicColorearDeRTF
-        '
-        Me.mnuFicColorearDeRTF.Name = "mnuFicColorearDeRTF"
-        Me.mnuFicColorearDeRTF.Size = New System.Drawing.Size(209, 22)
-        Me.mnuFicColorearDeRTF.Text = "Colorear desde RTF"
-        Me.mnuFicColorearDeRTF.ToolTipText = "Si el texto pegado ya tiene colores," & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "usa esta opción para generar el código HTML" &
-    " con ese coloreado."
-        '
-        'mnuFicSep0
-        '
-        Me.mnuFicSep0.Name = "mnuFicSep0"
-        Me.mnuFicSep0.Size = New System.Drawing.Size(206, 6)
-        '
         'mnuFicAbrir
         '
         Me.mnuFicAbrir.Name = "mnuFicAbrir"
-        Me.mnuFicAbrir.Size = New System.Drawing.Size(209, 22)
+        Me.mnuFicAbrir.Size = New System.Drawing.Size(177, 22)
         Me.mnuFicAbrir.Text = "Abrir..."
         Me.mnuFicAbrir.ToolTipText = " Abrir un fichero de código"
         '
         'mnuFicGuardar
         '
         Me.mnuFicGuardar.Name = "mnuFicGuardar"
-        Me.mnuFicGuardar.Size = New System.Drawing.Size(209, 22)
+        Me.mnuFicGuardar.Size = New System.Drawing.Size(177, 22)
         Me.mnuFicGuardar.Text = "Guardar como..."
         Me.mnuFicGuardar.ToolTipText = " Guardar el texto actual"
         '
         'mnuFicSep1
         '
         Me.mnuFicSep1.Name = "mnuFicSep1"
-        Me.mnuFicSep1.Size = New System.Drawing.Size(206, 6)
+        Me.mnuFicSep1.Size = New System.Drawing.Size(174, 6)
         '
         'mnuFicNavegar
         '
         Me.mnuFicNavegar.Name = "mnuFicNavegar"
-        Me.mnuFicNavegar.Size = New System.Drawing.Size(209, 22)
+        Me.mnuFicNavegar.Size = New System.Drawing.Size(177, 22)
         Me.mnuFicNavegar.Text = "Ver en el navegador"
         Me.mnuFicNavegar.ToolTipText = " Ver en el navegador con los cambios realizados en el texto "
         '
-        'mnuFicSep2
+        'mnuFicSep3
         '
-        Me.mnuFicSep2.Name = "mnuFicSep2"
-        Me.mnuFicSep2.Size = New System.Drawing.Size(206, 6)
+        Me.mnuFicSep3.Name = "mnuFicSep3"
+        Me.mnuFicSep3.Size = New System.Drawing.Size(174, 6)
         '
         'mnuFicAcerca
         '
         Me.mnuFicAcerca.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.mnuFicAcerca.Name = "mnuFicAcerca"
-        Me.mnuFicAcerca.Size = New System.Drawing.Size(209, 22)
+        Me.mnuFicAcerca.Size = New System.Drawing.Size(177, 22)
         Me.mnuFicAcerca.Text = "Acerca de..."
         Me.mnuFicAcerca.ToolTipText = " Muestra la info del programa "
         '
-        'mnuFicSep3
+        'mnuFicSep4
         '
-        Me.mnuFicSep3.Name = "mnuFicSep3"
-        Me.mnuFicSep3.Size = New System.Drawing.Size(206, 6)
+        Me.mnuFicSep4.Name = "mnuFicSep4"
+        Me.mnuFicSep4.Size = New System.Drawing.Size(174, 6)
         '
         'mnuFicSalir
         '
         Me.mnuFicSalir.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.mnuFicSalir.Name = "mnuFicSalir"
-        Me.mnuFicSalir.Size = New System.Drawing.Size(209, 22)
+        Me.mnuFicSalir.Size = New System.Drawing.Size(177, 22)
         Me.mnuFicSalir.Text = "&Salir"
         Me.mnuFicSalir.ToolTipText = " Terminar el programa "
+        '
+        'mnuSintaxColorear
+        '
+        Me.mnuSintaxColorear.Name = "mnuSintaxColorear"
+        Me.mnuSintaxColorear.ShortcutKeys = System.Windows.Forms.Keys.F8
+        Me.mnuSintaxColorear.Size = New System.Drawing.Size(209, 22)
+        Me.mnuSintaxColorear.Text = "Colorear"
+        Me.mnuSintaxColorear.ToolTipText = " Colorea el código usando el lenguaje y el formato indicados "
+        '
+        'mnuSintaxColorearEnRTF
+        '
+        Me.mnuSintaxColorearEnRTF.Name = "mnuSintaxColorearEnRTF"
+        Me.mnuSintaxColorearEnRTF.Size = New System.Drawing.Size(209, 22)
+        Me.mnuSintaxColorearEnRTF.Text = "Colorear en RTF (o HTML)"
+        Me.mnuSintaxColorearEnRTF.ToolTipText = " Marca esta opción para generar en formato RTF (si no lo marcas, se genera en HTM" &
+    "L) "
+        '
+        'mnuSintaxColorearDeRTF
+        '
+        Me.mnuSintaxColorearDeRTF.Name = "mnuSintaxColorearDeRTF"
+        Me.mnuSintaxColorearDeRTF.Size = New System.Drawing.Size(209, 22)
+        Me.mnuSintaxColorearDeRTF.Text = "Colorear desde RTF"
+        Me.mnuSintaxColorearDeRTF.ToolTipText = "Si el texto pegado ya tiene colores," & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "usa esta opción para generar el código HTML" &
+    " con ese coloreado."
         '
         'mnuEdi
         '
@@ -880,91 +874,96 @@ Partial Class fColorear
         '
         'mnuSintax
         '
-        Me.mnuSintax.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSintax_Ninguno, Me.mnuSintax_dotNet, Me.mnuSintax_VB, Me.mnuSintax_CS, Me.mnuSintax_Java, Me.mnuSintax_FSharp, Me.mnuSintax_IL, Me.mnuSintax_CPP, Me.mnuSintax_Pascal, Me.mnuSintax_SQL, Me.mnuSintax_VB6, Me.mnuSintax_XML})
+        Me.mnuSintax.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSintaxColorear, Me.mnuSintaxColorearEnRTF, Me.mnuSintaxColorearDeRTF, Me.mnuSintaxSep1, Me.mnuSintax_Ninguno, Me.mnuSintax_dotNet, Me.mnuSintax_VB, Me.mnuSintax_CS, Me.mnuSintax_Java, Me.mnuSintax_FSharp, Me.mnuSintax_IL, Me.mnuSintax_CPP, Me.mnuSintax_Pascal, Me.mnuSintax_SQL, Me.mnuSintax_VB6, Me.mnuSintax_XML})
         Me.mnuSintax.Name = "mnuSintax"
-        Me.mnuSintax.Size = New System.Drawing.Size(72, 20)
-        Me.mnuSintax.Text = "&Lenguajes"
+        Me.mnuSintax.Size = New System.Drawing.Size(59, 20)
+        Me.mnuSintax.Text = "&Sintaxis"
+        '
+        'mnuSintaxSep1
+        '
+        Me.mnuSintaxSep1.Name = "mnuSintaxSep1"
+        Me.mnuSintaxSep1.Size = New System.Drawing.Size(206, 6)
         '
         'mnuSintax_Ninguno
         '
         Me.mnuSintax_Ninguno.Name = "mnuSintax_Ninguno"
-        Me.mnuSintax_Ninguno.Size = New System.Drawing.Size(185, 22)
+        Me.mnuSintax_Ninguno.Size = New System.Drawing.Size(209, 22)
         Me.mnuSintax_Ninguno.Text = "Ninguno"
         '
         'mnuSintax_dotNet
         '
         Me.mnuSintax_dotNet.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.mnuSintax_dotNet.Name = "mnuSintax_dotNet"
-        Me.mnuSintax_dotNet.Size = New System.Drawing.Size(185, 22)
+        Me.mnuSintax_dotNet.Size = New System.Drawing.Size(209, 22)
         Me.mnuSintax_dotNet.Text = "dot&Net"
         '
         'mnuSintax_VB
         '
         Me.mnuSintax_VB.ImageTransparentColor = System.Drawing.Color.White
         Me.mnuSintax_VB.Name = "mnuSintax_VB"
-        Me.mnuSintax_VB.Size = New System.Drawing.Size(185, 22)
+        Me.mnuSintax_VB.Size = New System.Drawing.Size(209, 22)
         Me.mnuSintax_VB.Text = "&Visual Basic"
         '
         'mnuSintax_CS
         '
         Me.mnuSintax_CS.ImageTransparentColor = System.Drawing.Color.White
         Me.mnuSintax_CS.Name = "mnuSintax_CS"
-        Me.mnuSintax_CS.Size = New System.Drawing.Size(185, 22)
+        Me.mnuSintax_CS.Size = New System.Drawing.Size(209, 22)
         Me.mnuSintax_CS.Text = "&C#"
         '
         'mnuSintax_Java
         '
         Me.mnuSintax_Java.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.mnuSintax_Java.Name = "mnuSintax_Java"
-        Me.mnuSintax_Java.Size = New System.Drawing.Size(185, 22)
+        Me.mnuSintax_Java.Size = New System.Drawing.Size(209, 22)
         Me.mnuSintax_Java.Text = "&Java (J#)"
         '
         'mnuSintax_FSharp
         '
         Me.mnuSintax_FSharp.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.mnuSintax_FSharp.Name = "mnuSintax_FSharp"
-        Me.mnuSintax_FSharp.Size = New System.Drawing.Size(185, 22)
+        Me.mnuSintax_FSharp.Size = New System.Drawing.Size(209, 22)
         Me.mnuSintax_FSharp.Text = "&F#"
         '
         'mnuSintax_IL
         '
         Me.mnuSintax_IL.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.mnuSintax_IL.Name = "mnuSintax_IL"
-        Me.mnuSintax_IL.Size = New System.Drawing.Size(185, 22)
+        Me.mnuSintax_IL.Size = New System.Drawing.Size(209, 22)
         Me.mnuSintax_IL.Text = "&IL (ILASM)"
         '
         'mnuSintax_CPP
         '
         Me.mnuSintax_CPP.ImageTransparentColor = System.Drawing.Color.White
         Me.mnuSintax_CPP.Name = "mnuSintax_CPP"
-        Me.mnuSintax_CPP.Size = New System.Drawing.Size(185, 22)
+        Me.mnuSintax_CPP.Size = New System.Drawing.Size(209, 22)
         Me.mnuSintax_CPP.Text = "C/C&++"
         '
         'mnuSintax_Pascal
         '
         Me.mnuSintax_Pascal.ImageTransparentColor = System.Drawing.Color.White
         Me.mnuSintax_Pascal.Name = "mnuSintax_Pascal"
-        Me.mnuSintax_Pascal.Size = New System.Drawing.Size(185, 22)
+        Me.mnuSintax_Pascal.Size = New System.Drawing.Size(209, 22)
         Me.mnuSintax_Pascal.Text = "&Pascal (Delphi/Freya)"
         '
         'mnuSintax_SQL
         '
         Me.mnuSintax_SQL.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.mnuSintax_SQL.Name = "mnuSintax_SQL"
-        Me.mnuSintax_SQL.Size = New System.Drawing.Size(185, 22)
+        Me.mnuSintax_SQL.Size = New System.Drawing.Size(209, 22)
         Me.mnuSintax_SQL.Text = "&SQL"
         '
         'mnuSintax_VB6
         '
         Me.mnuSintax_VB6.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.mnuSintax_VB6.Name = "mnuSintax_VB6"
-        Me.mnuSintax_VB6.Size = New System.Drawing.Size(185, 22)
+        Me.mnuSintax_VB6.Size = New System.Drawing.Size(209, 22)
         Me.mnuSintax_VB6.Text = "VB&6"
         '
         'mnuSintax_XML
         '
         Me.mnuSintax_XML.Name = "mnuSintax_XML"
-        Me.mnuSintax_XML.Size = New System.Drawing.Size(185, 22)
+        Me.mnuSintax_XML.Size = New System.Drawing.Size(209, 22)
         Me.mnuSintax_XML.Text = "&XML (HTML, xaml)"
         Me.mnuSintax_XML.ToolTipText = "Colorea los ficheros tipo XML y HTML "
         '
@@ -1053,32 +1052,10 @@ Partial Class fColorear
         'tsbSintax
         '
         Me.tsbSintax.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbSintax.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tbSintaxColorearHTML, Me.tbSintaxColorearRTF, Me.tbSintaxSep1})
         Me.tsbSintax.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbSintax.Name = "tsbSintax"
         Me.tsbSintax.Size = New System.Drawing.Size(16, 22)
         Me.tsbSintax.Text = "Sintaxis"
-        '
-        'tbSintaxColorearHTML
-        '
-        Me.tbSintaxColorearHTML.Name = "tbSintaxColorearHTML"
-        Me.tbSintaxColorearHTML.ShortcutKeys = System.Windows.Forms.Keys.F8
-        Me.tbSintaxColorearHTML.Size = New System.Drawing.Size(209, 22)
-        Me.tbSintaxColorearHTML.Text = "Colorear"
-        Me.tbSintaxColorearHTML.ToolTipText = " Colorea el código "
-        '
-        'tbSintaxColorearRTF
-        '
-        Me.tbSintaxColorearRTF.Name = "tbSintaxColorearRTF"
-        Me.tbSintaxColorearRTF.Size = New System.Drawing.Size(209, 22)
-        Me.tbSintaxColorearRTF.Text = "Colorear en RTF (o HTML)"
-        Me.tbSintaxColorearRTF.ToolTipText = " Marca esta opción para generar en formato RTF (si no lo marcas, se genera en HTM" &
-    "L) "
-        '
-        'tbSintaxSep1
-        '
-        Me.tbSintaxSep1.Name = "tbSintaxSep1"
-        Me.tbSintaxSep1.Size = New System.Drawing.Size(206, 6)
         '
         'tsbSep3
         '
@@ -1139,6 +1116,18 @@ Partial Class fColorear
         Me.statusSintax.Text = "VB"
         Me.statusSintax.ToolTipText = " El lenguaje seleccionado para colorear "
         '
+        'mnuFicVerRTF
+        '
+        Me.mnuFicVerRTF.Name = "mnuFicVerRTF"
+        Me.mnuFicVerRTF.Size = New System.Drawing.Size(177, 22)
+        Me.mnuFicVerRTF.Text = "Ver RTF"
+        Me.mnuFicVerRTF.ToolTipText = "Ver el RTF generado en una ventana aparte"
+        '
+        'mnuFicSep2
+        '
+        Me.mnuFicSep2.Name = "mnuFicSep2"
+        Me.mnuFicSep2.Size = New System.Drawing.Size(6, 6)
+        '
         'fColorear
         '
         Me.AllowDrop = True
@@ -1180,15 +1169,15 @@ Partial Class fColorear
     Private WithEvents statusInfo As System.Windows.Forms.ToolStripStatusLabel
     Private WithEvents mnuFic As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents mnuFicAcerca As System.Windows.Forms.ToolStripMenuItem
-    Private WithEvents mnuFicSep3 As System.Windows.Forms.ToolStripSeparator
+    Private mnuFicSep4 As System.Windows.Forms.ToolStripSeparator
     Private WithEvents mnuFicSalir As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents mnuEdi As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents mnuEdiDeshacer As System.Windows.Forms.ToolStripMenuItem
-    Private WithEvents mnuEdiSep1 As System.Windows.Forms.ToolStripSeparator
+    Private mnuEdiSep1 As System.Windows.Forms.ToolStripSeparator
     Private WithEvents mnuEdiCortar As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents mnuEdiCopiar As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents mnuEdiPegar As System.Windows.Forms.ToolStripMenuItem
-    Private WithEvents mnuEdiSep2 As System.Windows.Forms.ToolStripSeparator
+    Private mnuEdiSep2 As System.Windows.Forms.ToolStripSeparator
     Private WithEvents tpPrincipal As System.Windows.Forms.TabPage
     Private WithEvents tpVisor As System.Windows.Forms.TabPage
     Private WithEvents WebBrowser1 As System.Windows.Forms.WebBrowser
@@ -1204,21 +1193,18 @@ Partial Class fColorear
     Private WithEvents mnuSintax_SQL As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents mnuSintax_VB6 As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents mnuSintax_Ninguno As System.Windows.Forms.ToolStripMenuItem
-    Private WithEvents mnuFicColorear As System.Windows.Forms.ToolStripMenuItem
-    Private WithEvents mnuFicSep0 As System.Windows.Forms.ToolStripSeparator
+    Private WithEvents mnuSintaxColorear As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents tsbColorear As System.Windows.Forms.ToolStripButton
-    Private WithEvents tsbSep0 As System.Windows.Forms.ToolStripSeparator
+    Private tsbSep0 As System.Windows.Forms.ToolStripSeparator
     Private WithEvents tsbCortar As System.Windows.Forms.ToolStripButton
     Private WithEvents tsbCopiar As System.Windows.Forms.ToolStripButton
     Private WithEvents tsbPegar As System.Windows.Forms.ToolStripButton
     Private WithEvents tsbDeshacer As System.Windows.Forms.ToolStripButton
-    Private WithEvents tsbSep2 As System.Windows.Forms.ToolStripSeparator
-    Private WithEvents tsbSep3 As System.Windows.Forms.ToolStripSeparator
-    Private WithEvents tsbSep5 As System.Windows.Forms.ToolStripSeparator
+    Private tsbSep2 As System.Windows.Forms.ToolStripSeparator
+    Private tsbSep3 As System.Windows.Forms.ToolStripSeparator
+    Private tsbSep5 As System.Windows.Forms.ToolStripSeparator
     Private WithEvents tsbSalir As System.Windows.Forms.ToolStripButton
     Private WithEvents tsbSintax As System.Windows.Forms.ToolStripSplitButton
-    Private WithEvents tbSintaxColorearHTML As System.Windows.Forms.ToolStripMenuItem
-    Private WithEvents tbSintaxSep1 As System.Windows.Forms.ToolStripSeparator
     Private WithEvents rtEditor As System.Windows.Forms.RichTextBox
     Private WithEvents statusSintax As System.Windows.Forms.ToolStripStatusLabel
     Private WithEvents GroupBox1 As System.Windows.Forms.GroupBox
@@ -1232,20 +1218,19 @@ Partial Class fColorear
     Private WithEvents tpColores As System.Windows.Forms.TabPage
     Private WithEvents btnTextoNormal As System.Windows.Forms.Button
     Private WithEvents btnColorear As System.Windows.Forms.Button
-    Private WithEvents tbSintaxColorearRTF As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents tsbGuardar As System.Windows.Forms.ToolStripButton
-    Private WithEvents tsbSep1 As System.Windows.Forms.ToolStripSeparator
+    Private tsbSep1 As System.Windows.Forms.ToolStripSeparator
     Private WithEvents mnuFicGuardar As System.Windows.Forms.ToolStripMenuItem
-    Private WithEvents mnuFicSep2 As System.Windows.Forms.ToolStripSeparator
+    Private mnuFicSep2 As System.Windows.Forms.ToolStripSeparator
     Private WithEvents tsbAbrir As System.Windows.Forms.ToolStripButton
     Private WithEvents mnuFicAbrir As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents mnuSintax_XML As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents tsbNavegar As System.Windows.Forms.ToolStripButton
-    Private WithEvents tsbSep4 As System.Windows.Forms.ToolStripSeparator
+    Private tsbSep4 As System.Windows.Forms.ToolStripSeparator
     Private WithEvents tsbAcerca As System.Windows.Forms.ToolStripButton
-    Private WithEvents mnuFicSep1 As System.Windows.Forms.ToolStripSeparator
+    Private mnuFicSep1 As System.Windows.Forms.ToolStripSeparator
     Private WithEvents mnuFicNavegar As System.Windows.Forms.ToolStripMenuItem
-    Private WithEvents mnuFicColorearDeRTF As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents mnuSintaxColorearDeRTF As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents toolTip1 As System.Windows.Forms.ToolTip
     Private WithEvents menuStrip1 As System.Windows.Forms.MenuStrip
     Private WithEvents toolStrip1 As System.Windows.Forms.ToolStrip
@@ -1287,6 +1272,9 @@ Partial Class fColorear
     Private WithEvents LabelColorClases As Label
     Private WithEvents txtColorClases As TextBox
     Private WithEvents Label3 As Label
-    Private WithEvents mnuFicColorearEnRTF As ToolStripMenuItem
+    Private WithEvents mnuSintaxColorearEnRTF As ToolStripMenuItem
     Private WithEvents mnuEdiSeleccionarTodo As ToolStripMenuItem
+    Private mnuSintaxSep1 As ToolStripSeparator
+    Private WithEvents mnuFicVerRTF As ToolStripMenuItem
+    Private WithEvents mnuFicSep3 As ToolStripSeparator
 End Class
