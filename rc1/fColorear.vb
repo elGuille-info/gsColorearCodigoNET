@@ -6,6 +6,9 @@
 ' 
 ' 1.1.0.4   19/Sep/20   Usando la versión 1.0.0.10 de gsColorearNET
 '                       Compilado usando .NET 5.0 RC1
+' 1.1.0.5   21/Sep/20   Cambio opciones de colorear del menú Fichero a Lenguajes
+'                       para que estén como en tsbSintax
+'                       Cambio el texto del menú mnuSintax de Lenguajes a Sintaxis
 '
 '
 #Region " Comentarios de versiones anteriores "
@@ -58,6 +61,19 @@ Imports gsColorearNET
 
 Public Class fColorear
 
+    ''' <summary>
+    ''' El menú de tsbSintax correspondiente a mnuSintaxColorearEnRTF
+    ''' </summary>
+    Private tsbSintaxColorearEnRTF As ToolStripMenuItem
+    ''' <summary>
+    ''' El menú de tsbSintax correspondiente a mnuSintaxColorear
+    ''' </summary>
+    Private tsbSintaxColorear As ToolStripMenuItem
+    ''' <summary>
+    ''' El menú de tsbSintax correspondiente a mnuSintaxColorearDeRTF
+    ''' </summary>
+    Private tsbSintaxColorearDeRTF As ToolStripMenuItem
+
     Private ultimoTexto As String = ""
 
     Private usarTemaOscuro As CheckState = CheckState.Unchecked
@@ -67,7 +83,7 @@ Public Class fColorear
         Get
             Return m_textoSin
         End Get
-        Set(ByVal value As String)
+        Set(value As String)
             If String.IsNullOrEmpty(value) = False Then
                 ultimoTexto = value
             End If
@@ -166,7 +182,7 @@ Public Class fColorear
         'Me.btnTextoNormal.Enabled = False
     End Sub
     Private Sub fColorear_DragDrop(sender As Object,
-                                   ByVal e As DragEventArgs) Handles Me.DragDrop, rtEditor.DragDrop
+                                   e As DragEventArgs) Handles Me.DragDrop, rtEditor.DragDrop
         If e.Data.GetDataPresent(DataFormats.FileDrop) Then
             Dim sFic As String
             sFic = CType(e.Data.GetData("FileDrop", True), String())(0)
@@ -216,28 +232,34 @@ Public Class fColorear
     End Sub
 
 
-    Private Sub abrir(ByVal fic As String)
-        '
+    Private Sub abrir(fic As String)
+
         Using sr As New System.IO.StreamReader(fic, System.Text.Encoding.Default, True)
             Me.rtEditor.Text = sr.ReadToEnd()
         End Using
-        '
+
         Me.Text = Me.Tag.ToString & " [" & System.IO.Path.GetFileName(fic) & "]"
-        '
+
         ' Marcar el lenguaje según la extensión
         Dim ext As String = System.IO.Path.GetExtension(fic).ToLower() & ";"
         Dim mnu As ToolStripMenuItem
-        For Each mnu In mnuSintax.DropDownItems
+        For i = 0 To mnuSintax.DropDownItems.Count - 1
+            mnu = TryCast(mnuSintax.DropDownItems(i), ToolStripMenuItem)
+            If mnu Is Nothing Then Continue For
+            If mnu Is mnuSintaxColorearEnRTF Then Continue For
             mnu.Checked = False
         Next
+
         ' Empezar por el "Ninguno" (el 3)                           (29/Ago/06)
-        For i As Integer = 3 To tsbSintax.DropDownItems.Count - 1
+        ' Ninguno ahora será el índice 4                            (21/Sep/20)
+        ' ya que el separador será el menú 3º
+        For i As Integer = 4 To tsbSintax.DropDownItems.Count - 1
             mnu = TryCast(tsbSintax.DropDownItems(i), ToolStripMenuItem)
             If mnu IsNot Nothing Then
                 mnu.Checked = False
             End If
         Next
-        '
+
         Dim le As Lenguajes
         Dim s As String
         If PalabrasClave.Extension(Lenguajes.CS) <> "" _
@@ -289,34 +311,36 @@ Public Class fColorear
             s = "mnuSintax_Ninguno"
         End If
         lenguaje = le
-        '
+
         DirectCast(mnuSintax.DropDownItems(s), ToolStripMenuItem).Checked = True
         DirectCast(tsbSintax.DropDownItems(s), ToolStripMenuItem).Checked = True
-        '
+
         Me.statusSintax.Text = lenguaje.ToString()
-        '
+
     End Sub
-    '
-    Private Sub guardar(ByVal fic As String)
+
+    Private Sub guardar(fic As String)
         Using sw As New System.IO.StreamWriter(fic, False, System.Text.Encoding.Default)
             sw.WriteLine(Me.rtEditor.Text)
         End Using
     End Sub
-    '
+
     ' Nuevas opciones de ver y colorear                             (08/Feb/07)
-    Private Sub verRTF(sender As Object, e As EventArgs)
+    Private Sub verRTF(sender As Object,
+                       e As EventArgs) Handles mnuFicVerRTF.Click
         ' Mostrar el código RTF del editor
         Dim fv As New fVerRTF
         fv.Texto = rtEditor.Rtf
         fv.Show()
         fv.BringToFront()
     End Sub
+
     Private Sub convertirDeRTF(sender As Object,
-                               e As EventArgs) Handles mnuFicColorearDeRTF.Click
+                               e As EventArgs) Handles mnuSintaxColorearDeRTF.Click
         ' Convertir el código RTF en coloreado de SPAN
         Me.statusInfo.Text = "Coloreando el código..."
         Me.statusStrip1.Refresh()
-        '
+
         If String.IsNullOrEmpty(rtEditor.Rtf) = False _
                 AndAlso rtEditor.Rtf.TrimStart().StartsWith("{\rtf") Then
             textoSin = Me.rtEditor.Rtf
@@ -338,21 +362,37 @@ Public Class fColorear
         Me.statusStrip1.Refresh()
 
     End Sub
-    '
+
     Private Sub inicializar()
         inicializando = True
-        '
+
         Me.cboFuentes.Text = Colorear.Fuente
         Me.cboTamFuente.Text = Colorear.FuenteTam
-        'me.Recientes
 
         ' Las opciones de tsbSintax para los lenguajes
-        For i As Integer = 0 To Me.mnuSintax.DropDownItems.Count - 1
+        For i = 0 To Me.mnuSintax.DropDownItems.Count - 1
             Dim tsi As ToolStripItem = mnuSintax.DropDownItems(i)
-            If TypeOf tsi Is ToolStripMenuItem Then
+            If tsi Is mnuSintaxColorearEnRTF Then
+                tsbSintaxColorearEnRTF = clonarToolStripMenuItem(
+                                DirectCast(tsi, ToolStripMenuItem),
+                                AddressOf mnuSintaxColorearEnRTF_Click)
+                Me.tsbSintax.DropDownItems.Add(tsbSintaxColorearEnRTF)
+            ElseIf tsi Is mnuSintaxColorear Then
+                tsbSintaxColorear = clonarToolStripMenuItem(
+                                DirectCast(tsi, ToolStripMenuItem),
+                                AddressOf btnColorear_Click)
+                Me.tsbSintax.DropDownItems.Add(tsbSintaxColorear)
+            ElseIf tsi Is mnuSintaxColorearDeRTF Then
+                tsbSintaxColorearDeRTF = clonarToolStripMenuItem(
+                                DirectCast(tsi, ToolStripMenuItem),
+                                AddressOf convertirDeRTF)
+                Me.tsbSintax.DropDownItems.Add(tsbSintaxColorearDeRTF)
+            ElseIf TypeOf tsi Is ToolStripMenuItem Then
                 Me.tsbSintax.DropDownItems.Add(clonarToolStripMenuItem(
                                 DirectCast(tsi, ToolStripMenuItem),
                                 AddressOf mnuSintax_Click))
+            ElseIf TypeOf tsi Is ToolStripSeparator Then
+                Me.tsbSintax.DropDownItems.Add(New ToolStripSeparator)
             End If
         Next
 
@@ -369,7 +409,7 @@ Public Class fColorear
         rtContext.Items.Add("-")
         rtContext.Items.Add(clonarToolStripMenuItem(Me.mnuEdiSeleccionarTodo,
                         AddressOf mnuEdiSeleccionarTodo_Click)) ' AddressOf mnuEdi_Select))
-        '
+
         ' Mostrar el código RTF del texto                           (08/Feb/07)
         rtContext.Items.Add("-")
         Dim tsit As ToolStripItem
@@ -379,7 +419,7 @@ Public Class fColorear
         tsit.Name = "mnuColorearDeRTF"
         AddHandler rtContext.Opening, AddressOf mnuEdi_Opening
         rtEditor.ContextMenuStrip = rtContext
-        '
+
         ' Añadir menú contextual al icono
         rtContext = New ContextMenuStrip
         rtContext.Items.Add("&Restaurar", Nothing, AddressOf restaurarForm)
@@ -399,16 +439,16 @@ Public Class fColorear
         ni.Text = "gsColorearCodigo"
         ni.Icon = Me.Icon
         ni.Visible = True ' False
-        '
+
         ' Asignar el tamaño y última posición
         Me.Left = cfg.GetValue("Ventana", "Left", Me.Left)
         Me.Top = cfg.GetValue("Ventana", "Top", Me.Top)
         Me.Height = cfg.GetValue("Ventana", "Height", Me.Height)
         Me.Width = cfg.GetValue("Ventana", "Width", Me.Width)
-        '
+
         inicializando = False
     End Sub
-    '
+
     Private Sub mnuOcultarMini_Click(sender As Object, e As EventArgs)
         Dim mnuOcultarMini As ToolStripMenuItem
         mnuOcultarMini = DirectCast(ni.ContextMenuStrip.Items("mnuOcultarMini"), ToolStripMenuItem)
@@ -425,7 +465,7 @@ Public Class fColorear
             End If
         End If
     End Sub
-    '
+
     ' Los tres botones para los datos de configuración.             (26/Ago/06)
     ' Se usarán para todas las fichas de configuración.
     Private Sub btnCfgAplicar_Click(sender As Object,
@@ -481,7 +521,7 @@ Public Class fColorear
         Me.btnCfgDeshacer.Enabled = b
         ' Restablecer siempre está disponible
     End Sub
-    '
+
     Private Sub restablecerCfg_tpColores()
         minimizarTray = cfg.GetValue("General", "minimizarTray", minimizarTray)
         Me.chkNotify.Checked = minimizarTray
@@ -525,6 +565,7 @@ Public Class fColorear
         guardarCfg_tpColores()
         datosCambiados()
     End Sub
+
     Private Sub guardarCfg_tpColores()
         minimizarTray = Me.chkNotify.Checked
         ' Actualizar el menú de minimizar                           (04/Feb/07)
@@ -551,6 +592,7 @@ Public Class fColorear
         usarTemaOscuro = chkUsarTemaOscuro.CheckState
         datosCambiados()
     End Sub
+
     Private Sub leerCfg_tpColores()
         inicializando = True
 
@@ -576,7 +618,7 @@ Public Class fColorear
 
         inicializando = False
     End Sub
-    '
+
     Private Sub guardarCfg()
         cfg.SetValue("General", "minimizarTray", minimizarTray)
         indentar = CInt(Me.txtIndentar.Value)
@@ -591,7 +633,7 @@ Public Class fColorear
 
         cfg.RemoveSection("Colorear")
         cfg.SetKeyValue("Colorear", "Lenguaje", lenguaje.ToString)
-        cfg.SetKeyValue("Colorear", "FormatoRTF", Me.tbSintaxColorearRTF.Checked)
+        cfg.SetKeyValue("Colorear", "FormatoRTF", Me.mnuSintaxColorearEnRTF.Checked)
 
         cfg.SetKeyValue("Colorear_" & Lenguajes.CS.ToString, "Seleccionado", Me.mnuSintax_CS.Checked)
         cfg.SetKeyValue("Colorear_" & Lenguajes.dotNet.ToString, "Seleccionado", Me.mnuSintax_dotNet.Checked)
@@ -674,19 +716,17 @@ Public Class fColorear
         '
         lenguaje = CType(System.Enum.Parse(GetType(Lenguajes), cfg.GetValue("Colorear", "Lenguaje", lenguaje.ToString)), Lenguajes)
         Me.statusSintax.Text = lenguaje.ToString()
-        '
-        Me.tbSintaxColorearRTF.Checked = cfg.GetValue("Colorear", "FormatoRTF", False)
+
+        Me.mnuSintaxColorearEnRTF.Checked = cfg.GetValue("Colorear", "FormatoRTF", False)
         ' Opción de Colorear en RTF en el menú fichero              (12/Sep/20)
-        Me.mnuFicColorearEnRTF.Checked = Me.tbSintaxColorearRTF.Checked
-        '
-        If Me.tbSintaxColorearRTF.Checked Then
+
+        If Me.mnuSintaxColorearEnRTF.Checked Then
             Me.btnColorear.Text = "Colorear en RTF"
         Else
             Me.btnColorear.Text = "Colorear en HTML"
         End If
-        Me.tbSintaxColorearHTML.Text = Me.btnColorear.Text
-        Me.mnuFicColorear.Text = Me.btnColorear.Text
-        '
+        Me.mnuSintaxColorear.Text = Me.btnColorear.Text
+
         mnuSintax_dotNet.Checked = cfg.GetValue("Colorear_" & Lenguajes.dotNet.ToString, "Seleccionado", True)
         mnuSintax_CS.Checked = cfg.GetValue("Colorear_" & Lenguajes.CS.ToString, "Seleccionado", False)
         mnuSintax_VB.Checked = cfg.GetValue("Colorear_" & Lenguajes.VB.ToString, "Seleccionado", False)
@@ -699,8 +739,7 @@ Public Class fColorear
         mnuSintax_IL.Checked = cfg.GetValue("Colorear_" & Lenguajes.IL.ToString, "Seleccionado", False)
         mnuSintax_XML.Checked = cfg.GetValue("Colorear_" & Lenguajes.XML.ToString, "Seleccionado", False)
         asignarPalabrasClave()
-        '
-        '
+
         ' Si se usa el tema oscuro                                  (10/Sep/20)
         'chkUsarTemaOscuro.CheckState = cfg.GetValue("Colorear", "UsarTemaOscuro", CheckState.Unchecked)
         ' Para usar la DLL de .NET Standard 2.0                     (11/Sep/20)
@@ -763,14 +802,13 @@ Public Class fColorear
         BringToFront()
     End Sub
 
-
     '----------------------------------------------------------------------
     ' Para los colores y el tag <pre>                           (27/Nov/05)
     ' Código de la ficha de configuración de gsHTMColorCode
     '----------------------------------------------------------------------
     '
     ' Seleccionar el color a usar                               (20/Oct/05)
-    Private Sub seleccionarColor(ByVal txt As TextBox, ByVal lbl As Label, ByVal predet As String)
+    Private Sub seleccionarColor(txt As TextBox, lbl As Label, predet As String)
         ' Usar el color del texto de la caja
         ' se asignará usando &H<color>
         ' Si da error, usar el color predeterminado
@@ -813,7 +851,6 @@ Public Class fColorear
         End Try
     End Sub
 
-
     Private Sub chkUsarStyle_CheckedChanged(sender As Object,
                                             e As EventArgs) Handles chkUsarSpanStyle.CheckedChanged
         datosCambiados()
@@ -830,14 +867,14 @@ Public Class fColorear
     End Sub
 
     Private Sub btnColorear_Click(sender As Object,
-                                  e As EventArgs) Handles tsbColorear.Click, tbSintaxColorearHTML.Click, btnColorear.Click, mnuFicColorear.Click
-        '
+                                  e As EventArgs) Handles tsbColorear.Click, btnColorear.Click, mnuSintaxColorear.Click
+
         ' Comprobar todo el texto para generar el HTML (también al pulsar F8)
         If rtEditor.TextLength = 0 Then Exit Sub
-        '
+
         Me.statusInfo.Text = "Coloreando el código..."
         Me.statusStrip1.Refresh()
-        '
+
         ' El texto anterior
         ' Guardarlo como RTF o texto, según proceda                 (08/Feb/07)
         If String.IsNullOrEmpty(rtEditor.Rtf) = False _
@@ -848,22 +885,22 @@ Public Class fColorear
         End If
         'textoSin = Me.rtEditor.Text
         Me.btnTextoNormal.Enabled = True
-        '
+
         If Me.chkIndentar.Checked Then
             Me.indentar = CInt(Me.txtIndentar.Value)
         Else
             Me.indentar = 0
         End If
-        '
+
         Dim formatoColoreado As Colorear.FormatosColoreado
-        If Me.tbSintaxColorearRTF.Checked Then
+        If Me.mnuSintaxColorearEnRTF.Checked Then
             formatoColoreado = Colorear.FormatosColoreado.RTF
         Else
             formatoColoreado = Colorear.FormatosColoreado.HTML
         End If
         ' No incluir los style
         Colorear.IncluirStyle = False
-        '
+
         Dim s As String
         s = Colorear.ColorearCodigo(rtEditor.Text, lenguaje,
                         formatoColoreado,
@@ -876,28 +913,6 @@ Public Class fColorear
             Me.statusInfo.Text = "Coloreado en formato RTF. Copia el código y crea un fichero con la extensión .rtf"
         Else
             guardarTEMP(s)
-            '' En Windows Vista, devuelve la barra del path          (23/Nov/06)
-            'Dim ficTmp As String = System.IO.Path.GetTempPath() '& "\gsColorearCodigo.htm"
-            'If ficTmp.EndsWith("\") Then
-            '    ficTmp &= "gsColorearCodigo.htm"
-            'Else
-            '    ficTmp &= "\gsColorearCodigo.htm"
-            'End If
-            'Using sw As New System.IO.StreamWriter(ficTmp, False, System.Text.Encoding.UTF8)
-            '    ' Aquí si incluir el style
-            '    sw.WriteLine("<style>pre{{font-family:{0}; font-size:{1}.0pt;}}</style>", _
-            '                Me.cboFuentes.Text, Me.cboTamFuente.Text)
-            '    sw.WriteLine(s)
-            '    sw.Close()
-            'End Using
-            '' En C# y en algunos otros los espacios                 (20/Ago/06)
-            '' los convierte en &nbsp; al pegar
-            'Me.rtEditor.Text = s.Replace("&nbsp;", " ")
-            'Me.WebBrowser1.Navigate(New Uri(ficTmp))
-            ''
-            'Me.statusInfo.Text = "Código coloreado. Pulsa en el Navegador para verlo o pégalo en una página HTML."
-            '' Seleccionar todo el código después de colorear        (17/Mar/06)
-            'Me.rtEditor.SelectAll()
         End If
         Me.statusStrip1.Refresh()
     End Sub
@@ -921,7 +936,7 @@ Public Class fColorear
         ' los convierte en &nbsp; al pegar
         Me.rtEditor.Text = s.Replace("&nbsp;", " ")
         Me.WebBrowser1.Navigate(New Uri(ficTmp))
-        '
+
         Me.statusInfo.Text = "Código coloreado. Pulsa en el Navegador para verlo o pégalo en una página HTML."
         ' Seleccionar todo el código después de colorear        (17/Mar/06)
         Me.rtEditor.SelectAll()
@@ -938,20 +953,21 @@ Public Class fColorear
         Else
             bEsRTF = False
         End If
-        '
+
         mnuEdiDeshacer.Enabled = rtEditor.CanUndo
         mnuEdiCortar.Enabled = (rtEditor.SelectedText.Length > 0)
         mnuEdiCopiar.Enabled = mnuEdiCortar.Enabled
-        '
+
         mnuEdiSeleccionarTodo.Enabled = (rtEditor.TextLength > 0)
-        Me.mnuFicColorear.Enabled = Me.mnuEdiSeleccionarTodo.Enabled
-        Me.mnuFicColorearDeRTF.Enabled = (Me.mnuEdiSeleccionarTodo.Enabled And bEsRTF)
-        Me.tbSintaxColorearHTML.Enabled = Me.mnuEdiSeleccionarTodo.Enabled
+        Me.mnuSintaxColorear.Enabled = Me.mnuEdiSeleccionarTodo.Enabled
+        Me.mnuSintaxColorearDeRTF.Enabled = (Me.mnuEdiSeleccionarTodo.Enabled And bEsRTF)
+        tsbSintaxColorearDeRTF.Enabled = mnuSintaxColorearDeRTF.Enabled
+        'Me.mnuSintaxColorear.Enabled = Me.mnuEdiSeleccionarTodo.Enabled
         Me.tsbColorear.Enabled = Me.mnuEdiSeleccionarTodo.Enabled
         Me.btnColorear.Enabled = Me.mnuEdiSeleccionarTodo.Enabled
         Me.mnuFicNavegar.Enabled = Me.mnuEdiSeleccionarTodo.Enabled
         Me.tsbNavegar.Enabled = Me.mnuEdiSeleccionarTodo.Enabled
-        '
+
         mnuEdiPegar.Enabled = False
         If Clipboard.GetDataObject.GetDataPresent(DataFormats.Text) Then
             mnuEdiPegar.Enabled = rtEditor.CanPaste(DataFormats.GetFormat(DataFormats.Text))
@@ -967,11 +983,11 @@ Public Class fColorear
         ElseIf Clipboard.GetDataObject.GetDataPresent(DataFormats.Rtf) Then
             mnuEdiPegar.Enabled = rtEditor.CanPaste(DataFormats.GetFormat(DataFormats.Rtf))
         End If
-        '
+
         Me.tsbCortar.Enabled = rtEditor.SelectedText.Length > 0
         Me.tsbCopiar.Enabled = Me.tsbCortar.Enabled
         Me.tsbPegar.Enabled = mnuEdiPegar.Enabled
-        '
+
         ' Actualizar también los del menú contextual
         If rtEditor.ContextMenuStrip IsNot Nothing Then
             For i As Integer = 0 To mnuEdi.DropDownItems.Count - 1
@@ -981,9 +997,10 @@ Public Class fColorear
             rtEditor.ContextMenuStrip.Items("mnuColorearDeRTF").Enabled = (Me.mnuEdiSeleccionarTodo.Enabled And bEsRTF)
             rtEditor.ContextMenuStrip.Items("mnuVerRTF").Enabled = mnuEdiSeleccionarTodo.Enabled
         End If
-        '
+
         Me.statusInfo.Text = Me.statusStrip1.Text
     End Sub
+
     Private Sub mnuEdi_Opening(sender As Object,
                                e As System.ComponentModel.CancelEventArgs)
         mnuEdi_Popup(Nothing, Nothing)
@@ -1034,21 +1051,32 @@ Public Class fColorear
         Static yaEstoy As Boolean
         If yaEstoy Then Exit Sub
         yaEstoy = True
-        Dim mnu As ToolStripMenuItem
-        For Each mnu In mnuSintax.DropDownItems
-            mnu.Checked = False
+
+        For i = 0 To mnuSintax.DropDownItems.Count - 1
+            Dim mnu1 = TryCast(mnuSintax.DropDownItems(i), ToolStripMenuItem)
+            If mnu1 IsNot Nothing Then
+                If mnu1 Is mnuSintaxColorearEnRTF Then Continue For
+                mnu1.Checked = False
+            End If
         Next
+
         ' Hay dos opciones antes de la lista de lenguajes
         ' pero no importa recorrerlos todos, ya que es para quitar
         ' la selección.
-        For i As Integer = 0 To tsbSintax.DropDownItems.Count - 1
-            mnu = TryCast(tsbSintax.DropDownItems(i), ToolStripMenuItem)
-            If mnu IsNot Nothing Then
-                mnu.Checked = False
+        For i = 0 To tsbSintax.DropDownItems.Count - 1
+            Dim mnu1 = TryCast(tsbSintax.DropDownItems(i), ToolStripMenuItem)
+            If mnu1 IsNot Nothing Then
+                If mnu1.Text = mnuSintaxColorearEnRTF.Text Then Continue For
+                mnu1.Checked = False
             End If
         Next
-        '
-        mnu = DirectCast(sender, ToolStripMenuItem)
+
+        Dim mnu = TryCast(sender, ToolStripMenuItem)
+        If mnu Is Nothing Then
+            yaEstoy = False
+            Return
+        End If
+
         Dim s As String = mnu.Name
         DirectCast(mnuSintax.DropDownItems(s), ToolStripMenuItem).Checked = True
         DirectCast(tsbSintax.DropDownItems(s), ToolStripMenuItem).Checked = True
@@ -1119,10 +1147,10 @@ Public Class fColorear
                                              eClick As EventHandler) As ToolStripMenuItem
         Return Me.clonarToolStripMenuItem(mnu, eClick, Nothing)
     End Function
-    Private Function clonarToolStripMenuItem(
-                    ByVal mnu As ToolStripMenuItem,
-                    ByVal eClick As EventHandler,
-                    ByVal eSelect As EventHandler) As ToolStripMenuItem
+
+    Private Function clonarToolStripMenuItem(mnu As ToolStripMenuItem,
+                                             eClick As EventHandler,
+                                             eSelect As EventHandler) As ToolStripMenuItem
         Dim mnuC As New ToolStripMenuItem
         AddHandler mnuC.Click, eClick
         If eSelect IsNot Nothing Then
@@ -1133,6 +1161,8 @@ Public Class fColorear
         mnuC.Enabled = mnu.Enabled
         mnuC.Font = mnu.Font
         mnuC.Image = mnu.Image
+        ' Deben tener el mismo nombre
+        ' ya que el nombre se usa en mnuSintax_Click
         mnuC.Name = mnu.Name
         mnuC.ShortcutKeys = mnu.ShortcutKeys
         mnuC.ShowShortcutKeys = mnu.ShowShortcutKeys
@@ -1142,8 +1172,7 @@ Public Class fColorear
 
         Return mnuC
     End Function
-    '
-    '
+
     Private Sub StatusStrip1_MouseMove(sender As Object,
                                        e As System.Windows.Forms.MouseEventArgs) Handles statusStrip1.MouseMove
         statusInfo.Text = statusStrip1.Text
@@ -1159,12 +1188,13 @@ Public Class fColorear
                                           e As EventArgs) Handles rtEditor.SelectionChanged
         Me.mnuEdi_Popup(Nothing, Nothing)
     End Sub
+
     Private Sub rtEditor_TextChanged(sender As Object,
                                      e As EventArgs) Handles rtEditor.TextChanged
         If inicializando Then Return
 
-        'Me.mnuFicColorear.Enabled = (rtEditor.TextLength > 0)
-        'Me.tbSintaxColorearHTML.Enabled = Me.mnuFicColorear.Enabled
+        'Me.mnuSintaxColorear.Enabled = (rtEditor.TextLength > 0)
+        'Me.tbSintaxColorearHTML.Enabled = Me.mnuSintaxColorear.Enabled
         Me.mnuEdi_Popup(Nothing, Nothing)
     End Sub
 
@@ -1196,25 +1226,28 @@ Public Class fColorear
         datosCambiados()
     End Sub
 
-    Private Sub tbSintaxColorearRTF_Click(sender As Object,
-                                          e As EventArgs) Handles tbSintaxColorearRTF.Click, mnuFicColorearEnRTF.Click
+    Private Sub mnuSintaxColorearEnRTF_Click(sender As Object,
+                                             e As EventArgs) Handles mnuSintaxColorearEnRTF.Click
 
         ' En el menú ficheros he añadido la opción de colorear RTF  (12/Sep/20)
-        If sender Is tbSintaxColorearRTF Then
-            Me.tbSintaxColorearRTF.Checked = Not tbSintaxColorearRTF.Checked
-            Me.mnuFicColorearEnRTF.Checked = Me.tbSintaxColorearRTF.Checked
+        ' Cambiado al menú Lenguajes/Sintaxis                       (21/Sep/20)
+        Dim mnu = TryCast(sender, ToolStripMenuItem)
+        If mnu Is Nothing Then Return
+
+        mnu.Checked = Not mnu.Checked
+        If mnu IsNot mnuSintaxColorearEnRTF Then
+            Me.mnuSintaxColorearEnRTF.Checked = mnu.Checked
         Else
-            Me.mnuFicColorearEnRTF.Checked = Not Me.mnuFicColorearEnRTF.Checked
-            Me.tbSintaxColorearRTF.Checked = Me.mnuFicColorearEnRTF.Checked
+            ' asignar el menú de tsbSintax
+            tsbSintaxColorearEnRTF.Checked = mnu.Checked
         End If
 
-        If Me.tbSintaxColorearRTF.Checked Then
+        If Me.mnuSintaxColorearEnRTF.Checked Then
             Me.btnColorear.Text = "Colorear en RTF"
         Else
             Me.btnColorear.Text = "Colorear en HTML"
         End If
-        Me.tbSintaxColorearHTML.Text = Me.btnColorear.Text
-        Me.mnuFicColorear.Text = Me.btnColorear.Text
+        Me.mnuSintaxColorear.Text = Me.btnColorear.Text
 
     End Sub
 
@@ -1226,7 +1259,7 @@ Public Class fColorear
         With saveFD
             .Title = "Guardar el texto coloreado"
             .Filter = "HTML (*.htm; *.asp)|*.htm;*.asp|RTF (*.rtf)|*.rtf|Texto (*.txt)|*.txt|Todos los tipos (*.*)|*.*"
-            If Me.tbSintaxColorearRTF.Checked Then
+            If Me.mnuSintaxColorearEnRTF.Checked Then
                 .FilterIndex = 1
             Else
                 .FilterIndex = 0
@@ -1309,10 +1342,11 @@ Public Class fColorear
         Else
             bEsRTF = False
         End If
-        '
+
         mnuEdiSeleccionarTodo.Enabled = (rtEditor.TextLength > 0)
-        Me.mnuFicColorear.Enabled = Me.mnuEdiSeleccionarTodo.Enabled
-        Me.mnuFicColorearDeRTF.Enabled = (Me.mnuEdiSeleccionarTodo.Enabled And bEsRTF)
+        Me.mnuSintaxColorear.Enabled = Me.mnuEdiSeleccionarTodo.Enabled
+        Me.mnuSintaxColorearDeRTF.Enabled = (Me.mnuEdiSeleccionarTodo.Enabled And bEsRTF)
+        tsbSintaxColorearDeRTF.Enabled = mnuSintaxColorearDeRTF.Enabled
     End Sub
 
     '
@@ -1441,10 +1475,17 @@ Public Class fColorear
     ' Para la información de la versión y descripción del ensamblado
     Private FileDescription, FileVersion As String
 
+    Private Sub mnuSintaxColorear_TextChanged(sender As Object,
+                                              e As EventArgs) Handles mnuSintaxColorear.TextChanged
+
+
+    End Sub
+
     Private Sub leerInfoEnsamblado()
         'System.Diagnostics.
         Dim fvi = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly.Location)
         Me.FileDescription = fvi.FileDescription
         Me.FileVersion = fvi.FileVersion
     End Sub
+
 End Class

@@ -17,7 +17,7 @@ Imports System.Linq
 Partial Public Class fColorear
 
     Private Sub AsignarImagenes()
-        Me.mnuFicColorear.Image = New System.Drawing.Bitmap(".\Resources\ColorHS.png")
+        Me.mnuSintaxColorear.Image = New System.Drawing.Bitmap(".\Resources\ColorHS.png")
         Me.mnuFicAbrir.Image = New System.Drawing.Bitmap(".\Resources\openHS.png")
         Me.mnuFicGuardar.Image = New System.Drawing.Bitmap(".\Resources\saveHS.png")
         Me.mnuFicNavegar.Image = New System.Drawing.Bitmap(".\Resources\Web.png")
@@ -47,7 +47,6 @@ Partial Public Class fColorear
         Me.tsbPegar.Image = New System.Drawing.Bitmap(".\Resources\PasteHS.png")
         Me.tsbDeshacer.Image = New System.Drawing.Bitmap(".\Resources\Edit_UndoHS.png")
         Me.tsbSintax.Image = New System.Drawing.Bitmap(".\Resources\Hoja_colores.png")
-        Me.tbSintaxColorearHTML.Image = New System.Drawing.Bitmap(".\Resources\ColorHS.png")
         Me.tsbNavegar.Image = New System.Drawing.Bitmap(".\Resources\Web.png")
         Me.tsbAcerca.Image = New System.Drawing.Bitmap(".\Resources\Info.png")
         Me.tsbSalir.Image = New System.Drawing.Bitmap(".\Resources\XP_Cerrar.png")
