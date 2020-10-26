@@ -7,7 +7,8 @@ Esta utilidad utiliza .NET 5.0 RC2 y la biblioteca de clases <b>gsColorearNET</b
 La carpeta <b>actual</b> (antes rc1) tiene el código del proyecto actual con las modificaciones (aún utiliza .NET 5.0 RC2 y está codificado con Visual Studio 2019 Preview Version 16.8.0 Preview 5).<br>
 Las modificaciones estarán en otras ramas, por eso en este proyecto no uso otra carpeta con las diferentes versiones del código.<br>
 <br>
-La carpeta <b>bin</b> (antes bin-RC1) tiene el ejecutable compilado con .NET 5.0 RC2 y gsColorearNET.dll compilada con .NET Standard 2.0.<br>
+<b>NOTA:</b><br>
+He eliminado la carpeta <b>bin</b> publicaré una <b>Release</b> con los ejecutables.<br>
 <br>
 <h3>Nota sobre esta versión para .NET 5.0 RC2</h3>
 Esta versión para .NET 5.0 RC2 de la utilidad de gsColorearCodigo para .NET Framework 4.8 es para poder depurar la DLL gsColorearNET,<br>
