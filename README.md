@@ -8,7 +8,8 @@ La carpeta <b>actual</b> (antes rc1) tiene el código del proyecto actual con la
 Las modificaciones estarán en otras ramas, por eso en este proyecto no uso otra carpeta con las diferentes versiones del código.<br>
 <br>
 <b>NOTA:</b><br>
-He eliminado la carpeta <b>bin</b> publicaré una <b>Release</b> con los ejecutables.<br>
+He eliminado la carpeta <b>bin</b> y publicado una <b>Release</b> con los ejecutables.<br>
+<a href="https://github.com/elGuille-info/gsColorearCodigoNET/releases/tag/v1.1.0.8">gsColorearCodigoNET v1.1.0.8</a><br>
 <br>
 <h3>Nota sobre esta versión para .NET 5.0 RC2</h3>
 Esta versión para .NET 5.0 RC2 de la utilidad de gsColorearCodigo para .NET Framework 4.8 es para poder depurar la DLL gsColorearNET,<br>
