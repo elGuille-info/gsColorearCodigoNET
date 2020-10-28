@@ -31,4 +31,4 @@ En <a href="www.elguille.info">elguille.info</a> está <a href="http://elguille.
 Guillermo<br>
 <br>
 <br>
-Actualizado el 24 de octubre de 2020 a eso de las 15:39 GMT+2
+Actualizado el 28 de octubre de 2020 a eso de las 13:09 GMT+1
